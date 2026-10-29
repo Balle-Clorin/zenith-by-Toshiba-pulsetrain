@@ -24,7 +24,7 @@ from scipy.signal import find_peaks, resample
 # Script identity (shown in header of the result page)
 # ----------------------------------------------------------------
 SCRIPT_NAME = "tosh9001r_pulse_zenith_analyzer"  # display name (file on GitHub is app.py)
-SCRIPT_REV = "REV1"
+SCRIPT_REV = "REV2"
 
 # ----------------------------------------------------------------
 # Defaults (adjustable in sidebar)
@@ -41,6 +41,7 @@ DEF_RPM = 33.33
 DEF_DESCRIPTION = "JVC QL-Y5F SHURE V15-IV SASB VTA NO SHIM PH-8, TOSH-9001R pulse zenith/HTA test"
 
 BASE_FONT = 13
+PLOT_HALF_WINDOW_US = 500   # single-pulse plot: +/- this many us around window centre (display only)
 
 
 # ----------------------------------------------------------------
@@ -167,6 +168,11 @@ def make_figure(L, R, sr, peaks, dt_us, bursts, radius_mm, offset_um, trend,
                  f"(this pulse: dt = {(iR - iL) / up / sr * 1e6:+.3f} us)")
     ax.set_xlabel("time relative to window center (us)")
     ax.set_ylabel("amplitude")
+    ax.set_xlim(-PLOT_HALF_WINDOW_US, PLOT_HALF_WINDOW_US)
+    in_view = np.abs(tt) <= PLOT_HALF_WINDOW_US
+    if np.any(in_view):
+        ymax = max(np.max(np.abs(upL[in_view])), np.max(np.abs(upR[in_view]))) * 1.08
+        ax.set_ylim(-ymax, ymax)
     ax.legend(loc="upper right", fontsize=8)
 
     ax = axes[2]
