@@ -24,7 +24,7 @@ from scipy.signal import find_peaks, resample
 # Script identity (shown in header of the result page)
 # ----------------------------------------------------------------
 SCRIPT_NAME = "tosh9001r_pulse_zenith_analyzer"  # display name (file on GitHub is app.py)
-SCRIPT_REV = "REV2"
+SCRIPT_REV = "REV3"
 
 # ----------------------------------------------------------------
 # Defaults (adjustable in sidebar)
@@ -37,7 +37,7 @@ DEF_BURST_GAP = 5000
 DEF_MAD_MULT = 6.0
 DEF_RADIUS_START = 125.0
 DEF_RADIUS_END = 119.5
-DEF_RPM = 33.33
+DEF_RPM = 45.0
 DEF_DESCRIPTION = "JVC QL-Y5F SHURE V15-IV SASB VTA NO SHIM PH-8, TOSH-9001R pulse zenith/HTA test"
 
 BASE_FONT = 13
